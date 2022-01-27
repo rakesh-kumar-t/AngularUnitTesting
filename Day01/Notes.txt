@@ -1,24 +1,3 @@
-Unit Testing in Angular
-~~~~~~~~~~~~~~~~~~~
-
-
->	ng new 
->	ng serve
->	ng generate
->  ng build
->  ng test
-
-
-
-
->	ng  g   c  login	 
-	
-		login.component.ts
-		login.component.html
-		login.component.css
-		login.component.spec.ts	----	test specifications 
-
-
 Unit Testing in Angular using Jasmine and Karma
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -102,45 +81,207 @@ AAA----	Arrange, Act,  Assert
  
  
  
+ 
+ 
+Test API for Angular Apps
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Module :   @angular/core/testing
+
+Main API:   
+					TestBed
+							Configures and initializes environment for unit testing and provides methods for creating components and services in unit tests. TestBed is the primary api for writing unit tests for Angular applications and libraries.
+							
+							Eg:				configureTestingModule()	
+												createComponent()
+												
+							
+					ComponentFixture Class
+							Fixture for debugging and testing a component.
+Methods:
+					describe()	:  Create a group of specs (often called a suite).
+					it()				:		write each unit test using it() method
+					expect() 		:    verify the test result to check the result is pass/fail. 
 
 
 
-Writing Unit Test cases
-~~~~~~~~~~~~~~~~~~~~
 
-
-1. Method Name 	:	 describe()	 ------      create test suite	(collection of testcases)		
-			a. string   ---   test suite title
-			b. callback   ---   code to prepare all test sepcs
-					
-2. Method Name :		it()		----   create test case
-3. Parameters:
-		a. string		----		test case title
-		b. callback  -----		code to perform testing
-				AAA
-
-
-4.   Assert Step
-	  expect(app.title).toEqual('my-testing-project');
-	  
-5.  Matcher Functions	  :		toEqual
+ 
+ 
+ 
+ 
+ Codes:
+ 
+	--> It returns the first element:
+				const p = bannerElement.querySelector('p')!;
+				
+	-->			
+ 
+ 
+ 
 
 
 
-
-.content span
-{
-	
-}
 
 
 
 ---------------------------------------------------------------------
+--> Angular CLI generate all the required configuration settings at the time of creating new angular application. 
 
-Executing TestCases
-~~~~~~~~~~~~~~~~~~
-
->	ng  test
->	 ng  test    --include  "src/app/app.component.spec.ts"
+		Eg:		 angular.json,  karma.conf.js
 
 
+> ng  new
+> ng  serve
+> ng  generate   
+> ng  build
+> ng  add
+> ng  test
+-----------------------------------------------------------------
+
+Running Tests:
+	
+	
+To Runs all tests in Angular App
+	>	ng  test
+	
+To run specific *.spec.ts  file		
+	>  ng  test    --include  "src/app/app.component.spec.ts"
+	>  ng  test    --include  "src/app/login/login.component.spec.ts"
+
+
+--------------------------------------------------------------------
+	
+Angular Testing 	Library
+~~~~~~~~~~~~~~~~~~~~~
+
+Libary :		@angular/core/testing
+
+
+TestBed Class
+~~~~~~~~~~~~
+-->	The TestBed configures and initializes environment for unit testing. 
+-->	The TestBed instantiates required component and services for testing.
+
+
+	TestBed.configureTestingModule({...}).compileComponents();
+	
+	const fixture = TestBed.createComponent(AppComponent);
+	
+	
+	--> In the above statement,   createComponent() method returns ComponentFixture class object.    It will be generated based on the given component.
+	
+ComponentFixture
+~~~~~~~~~~~~~~~	
+--> The ComponentFixture is the fixture for debugging and testing a component. 
+--> It is instantiated using TestBed.
+--> To create component object using ComponentFixture, it provides componentInstance property
+
+	const app = fixture.componentInstance;
+
+--> To access HTML element from HTML template, the ComponentFixture provides debugElement and nativeElement.
+--> In querySelector we can pass element id or element type. 
+--> In ComponentFixture,  debugElement and  the nativeElement to access html tags.
+
+	
+	
+1.  Should create the app ---  app component instance	
+	
+it('should create the app', () => {
+	// Arrange
+    const fixture = TestBed.createComponent(AppComponent);
+	
+	// Act
+    const app = fixture.componentInstance;
+	
+	// Assert
+    expect(app).toBeTruthy();
+ });
+	
+	
+	
+2.  Testing "title" property value -- should be "my-project"
+
+
+  it(`should have as title 'my-project'`, () => {
+	 
+    // Arrange 
+    const fixture = TestBed.createComponent(AppComponent);
+	
+	// Action
+    const app = fixture.componentInstance;
+	
+	// Assert
+    expect(app.title).toEqual('my-project');
+  });	
+-------------------------------------------------------------------------------------------------
+
+Structure of a Jasmine Unit Test
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+1. describe() function
+2. it() function
+3. expect() function
+4. Jasmine matchers
+
+		a.  toBeTruthy()
+		b.  toBe("")
+		c.  toBe(true) 
+		d.  not.toBe(true)
+		e.  toEqual()
+		f.   toContain("success")
+		g.   toBeLessThan(100)
+		h.   toBeGreaterThan(100)
+		i.   toBeGreaterThanOrEqual(100)
+		j.   toBeLessThanOrEqual(100)
+		
+		
+
+5. Setup and Teardown using beforeEach(), afterEach(), beforeAll(),afterAll()
+
+	-->  to execute the code before or after the testcase processing
+	
+		beforeEach()	----		multiple ----		for each testcase  
+		afterEach()	----		multiple ----		for each testcase  
+		beforeAll()		----		only once
+		afterAll()		----		only once 
+--------------------------------------------------------------------------------
+How to skip test and test suite?
+
+1.    xit()		----	skip only that test
+2.    xdescribe()  ---- skip the entire test suite
+--------------------------------------------------------------------------------
+
+Testing Angular components
+~~~~~~~~~~~~~~~~~~~~~~
+1. Testing  Component  properties
+2. Testing  Component  methods
+3.  Testing  Component Templates ----  HTMl Tags
+4.  Testing  input fields ---  textbox
+5.  Testing  input fields ---  textbox --- with [(ngModel)]
+		--- include  "FormsModule"  in testbed configuration
+
+6.  Testing  button click events 
+			
+	
+
+
+Getting single element:
+		const inputObj =  fixture.nativeElement.querySelector("input");		
+		---> returns first matching element
+
+Getting multiple element:
+		 const inputArray =  fixture.nativeElement.querySelectorAll("input");
+
+
+Trigger events in unit testing:		
+	inputObj.dispatchEvent(new Event("input"));
+	inputObj.dispatchEvent(new Event("click"));
+
+	
+  const headObj = fixture.nativeElement.querySelector('h3');
+    console.log(headObj.innerText);
+	
+	
+	
