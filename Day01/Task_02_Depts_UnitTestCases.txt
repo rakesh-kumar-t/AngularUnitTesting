@@ -1,0 +1,25 @@
+
+Create a component DeptComponent to process depts details.
+
+Development
+	a. Display array of depts in table format. (deptno, dname, loc)
+	b. Provide required no. textbox to enter new dept details
+	c. "Add Button"  --- need to add new dept details to DeptArray
+	
+	
+Testing	
+
+	1. Default deptsArray should contains --  3 objects
+	2. Default values  of properties :		deptno - 0 ,  dname  - "", loc : ""
+	3. Test  addDept_click() method -- by provide values to properties
+	
+	4. By default table should four rows (1 header + 3 datarows)
+	5. Check the default values of textbox
+	6. Enter textbox values and check the component properties
+	7. Add button click --- by provide textbox values 
+		verify --- no. of rows in table should be five.
+		
+		
+		
+	
+	
