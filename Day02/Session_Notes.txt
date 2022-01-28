@@ -125,10 +125,72 @@ ng  test    --include  "src/app/gender.pipe.spec.ts"
 
 ng  test    --include  "src/app/calculator.service.spec.ts"
 
+---------------------------------------------------------------------------------------------------------------------------
 
 
 
+3. Testing Services   (with dependencies)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+--> Testing the services with  dependencies.
+
+Eg:  
+			CalculatorService is depends on LogService
+			DataService is depends on HttpClient
+	
+--> CalculatorService is depends on LogService
 
 
+			
 
+Using Jasmine Spies in Angular Testing to mocking the dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--> Jasmine spies are used to track or stub functions or methods. 
+
+--> Spies are a way to check if a function was called or to provide a custom return value. 
+
+--> We can use spies to test components/services that depend on service and avoid actually calling the service’s methods to get a value. 
+
+--> This helps keep our unit tests focused on testing the internals of the component/services itself instead of its dependencies.
+
+--> There are two types of spying technology available in Jasmine.
+
+			a.  using spyOn() : 
+					it is inbuilt into the Jasmine library which allows you to spy on a definite piece of code.
+					
+					 spyOn(demoService, "hello");
+					 spyOn(EngineService, 'getHorsepower');					 
+					 spyOn(EngineService.prototype, 'getHorsepower').and.returnValue(400);
+					
+			b.  using createSpyObj()
+					--> jasmine.createSpyObj is used to create a mock that will spy on one or more methods.
+					--> It returns an object that has a property for each string that is a spy. If you want to create a mock you should use jasmine.
+						
+						Eg:
+						
+							let loggerServiceSpy: { log: jasmine.Spy};								
+							loggerServiceSpy = jasmine.createSpyObj('LoggerService', ['log']);
+													
+						
+							let engineServiceSpy: { getHorsepower: jasmine.Spy};	
+							engineServiceSpy = jasmine.createSpyObj('EngineService', 'getHorsepower');
+							engineServiceSpy.getHorsepower.and.returnValue(400);
+							
+							
+							let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy };	
+							httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
+							
+							httpClientSpy.get.and.returnValue(of(sampleData));		
+							
+							
+							import  { of } from 'rxjs';
+							
  
+	
+
+Note: 
+-->  TestBed.get() was deprecated as of Angular version 9. To help minimize breaking changes, Angular introduces a new function called TestBed.inject(), which you should use instead.
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
