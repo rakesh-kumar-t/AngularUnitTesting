@@ -194,3 +194,63 @@ Note:
 -----------------------------------------------------------------------------------------------------------------------
 
 
+Testing Routes in Angular Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Resources
+~~~~~~~~~
+1.  RouterTestingModule		----			'@angular/router/testing';
+2.  Router Service			-----		'@angular/router'
+3.  Location Service			----		'@angular/common'
+4.  tick			----		'@angular/core/testing'
+
+
+
+		Hint:  export  routes variable from  app-routing.module.ts
+
+
+		import { RouterTestingModule } from '@angular/router/testing';
+		import {routes} from './app-routing.module';
+		
+
+
+		RouterTestingModule.withRootes(routes)
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------
+
+
+Code-Coverage
+~~~~~~~~~~~~
+
+
+
+>		ng  test  ---code-coverage
+
+
+=============================== Coverage summary ===============================
+Statements   : 84.61% ( 44/52 )
+Branches     : 75% ( 6/8 )
+Functions    : 76.47% ( 13/17 )
+Lines        : 82.92% ( 34/41 )
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
